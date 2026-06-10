@@ -11,6 +11,47 @@ const YoutubeIcon = ({ size = 24, style }: { size?: number; style?: React.CSSPro
   </svg>
 );
 
+let globalAudioCtx: AudioContext | null = null;
+
+const playPopSound = () => {
+  if (typeof window === 'undefined') return;
+  try {
+    const AudioContextClass = window.AudioContext || (window as any).webkitAudioContext;
+    if (!AudioContextClass) return;
+    
+    if (!globalAudioCtx) {
+      globalAudioCtx = new AudioContextClass();
+    }
+    
+    const ctx = globalAudioCtx;
+    
+    // Resume context if it is in suspended state (required for modern browser security policies)
+    if (ctx.state === 'suspended') {
+      ctx.resume().catch((err) => console.warn('Could not resume AudioContext', err));
+    }
+    
+    const osc = ctx.createOscillator();
+    const gain = ctx.createGain();
+    
+    osc.connect(gain);
+    gain.connect(ctx.destination);
+    
+    const now = ctx.currentTime;
+    osc.type = 'sine';
+    osc.frequency.setValueAtTime(150, now);
+    osc.frequency.exponentialRampToValueAtTime(800, now + 0.08);
+    
+    gain.gain.setValueAtTime(0.35, now);
+    gain.gain.exponentialRampToValueAtTime(0.01, now + 0.08);
+    
+    osc.start(now);
+    osc.stop(now + 0.08);
+  } catch (e) {
+    console.warn('AudioContext failed to play sound', e);
+  }
+};
+
+
 export function FloatingContactButtons() {
   const [isOpen, setIsOpen] = useState(true);
   const [isMobile, setIsMobile] = useState(false);
@@ -72,6 +113,7 @@ export function FloatingContactButtons() {
           <div className="flex flex-col gap-3">
             {/* Live Counselling Button */}
             <motion.div
+              onClick={playPopSound}
               aria-label="Live Counselling Session Active"
               className="w-14 h-14 rounded-full flex items-center justify-center shadow-lg transition-all text-white relative group cursor-pointer"
               style={{
@@ -103,6 +145,7 @@ export function FloatingContactButtons() {
             </motion.div>
             {/* Call Button */}
             <motion.a
+              onClick={playPopSound}
               href={`tel:${CONTACT.phones[2]}`}
               aria-label="Call Counsellor"
               id="call-float-btn"
@@ -131,6 +174,7 @@ export function FloatingContactButtons() {
 
             {/* WhatsApp Button */}
             <motion.a
+              onClick={playPopSound}
               href={getWhatsAppLink(CONTACT.whatsapp, 'Hello! I am interested in studying abroad. Please guide me.')}
               target="_blank"
               rel="noopener noreferrer"
@@ -170,7 +214,7 @@ export function FloatingContactButtons() {
 
             {/* YouTube Button */}
             <motion.button
-              onClick={() => setShowYoutubeModal(true)}
+              onClick={() => { playPopSound(); setShowYoutubeModal(true); }}
               aria-label="Open YouTube Hub"
               id="youtube-float-btn"
               className="w-14 h-14 rounded-full flex items-center justify-center shadow-lg transition-all text-white relative group cursor-pointer border-0"
@@ -212,8 +256,9 @@ export function FloatingContactButtons() {
                 >
                   {/* Mobile Live Counselling Button */}
                   <motion.div
+                    onClick={playPopSound}
                     aria-label="Live Counselling Active"
-                    className="w-14 h-14 rounded-full flex items-center justify-center text-white shadow-lg relative group"
+                    className="w-14 h-14 rounded-full flex items-center justify-center text-white shadow-lg relative group cursor-pointer"
                     style={{
                       background: 'linear-gradient(135deg, #14B8C4 0%, #083B7A 100%)',
                       boxShadow: '0 4px 20px rgba(20, 184, 196, 0.4)',
@@ -238,6 +283,7 @@ export function FloatingContactButtons() {
                   </motion.div>
                   {/* Mobile Call Button */}
                   <motion.a
+                    onClick={playPopSound}
                     href={`tel:${CONTACT.phones[2]}`}
                     aria-label="Call Counsellor"
                     className="w-14 h-14 rounded-full flex items-center justify-center text-white shadow-lg relative group"
@@ -260,6 +306,7 @@ export function FloatingContactButtons() {
 
                   {/* Mobile WhatsApp Button */}
                   <motion.a
+                    onClick={playPopSound}
                     href={getWhatsAppLink(CONTACT.whatsapp, 'Hello! I am interested in studying abroad. Please guide me.')}
                     target="_blank"
                     rel="noopener noreferrer"
@@ -293,7 +340,7 @@ export function FloatingContactButtons() {
 
                   {/* Mobile YouTube Button */}
                   <motion.button
-                    onClick={() => setShowYoutubeModal(true)}
+                    onClick={() => { playPopSound(); setShowYoutubeModal(true); }}
                     aria-label="Open YouTube Hub"
                     className="w-14 h-14 rounded-full flex items-center justify-center text-white shadow-lg relative group cursor-pointer border-0"
                     style={{
@@ -318,7 +365,7 @@ export function FloatingContactButtons() {
 
             {/* Toggle Button */}
             <motion.button
-              onClick={handleToggle}
+              onClick={() => { playPopSound(); handleToggle(); }}
               aria-label="Toggle contact menu"
               id="contact-menu-toggle"
               className="w-14 h-14 rounded-full flex items-center justify-center shadow-lg text-white z-20 relative cursor-pointer border-0"
@@ -356,7 +403,7 @@ export function FloatingContactButtons() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              onClick={() => setShowYoutubeModal(false)}
+              onClick={() => { playPopSound(); setShowYoutubeModal(false); }}
               className="absolute inset-0 bg-slate-950/80 backdrop-blur-sm z-[9999]"
             />
 
@@ -384,7 +431,7 @@ export function FloatingContactButtons() {
                   </div>
                 </div>
                 <button
-                  onClick={() => setShowYoutubeModal(false)}
+                  onClick={() => { playPopSound(); setShowYoutubeModal(false); }}
                   className="w-8 h-8 rounded-lg bg-slate-800/80 hover:bg-slate-800 text-slate-400 hover:text-white flex items-center justify-center transition-colors cursor-pointer border-0"
                   aria-label="Close video player"
                 >
@@ -425,7 +472,7 @@ export function FloatingContactButtons() {
                     Visit Channel
                   </a>
                   <button
-                    onClick={() => setShowYoutubeModal(false)}
+                    onClick={() => { playPopSound(); setShowYoutubeModal(false); }}
                     className="flex-1 sm:flex-initial inline-flex items-center justify-center bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white px-4 py-2.5 rounded-lg text-sm font-semibold transition-colors cursor-pointer border-0"
                   >
                     Close Player
