@@ -48,7 +48,7 @@ export function ServicesSection() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: '-40px' }}
                 transition={{ delay: i * 0.08, duration: 0.5 }}
-                className="card-hover group bg-white rounded-3xl p-7.5 border border-slate-100/80 shadow-card hover:shadow-card-hover relative overflow-hidden flex flex-col"
+                className="card-hover group bg-white rounded-3xl p-6 sm:p-8 border border-slate-100/80 shadow-card hover:shadow-card-hover relative overflow-hidden flex flex-col"
               >
                 {/* Step Badge */}
                 <div

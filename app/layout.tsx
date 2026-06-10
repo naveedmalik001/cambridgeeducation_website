@@ -152,9 +152,12 @@ export default function RootLayout({
         style={{
           fontFamily: 'var(--font-inter), system-ui, sans-serif',
         }}
+        className="overflow-x-hidden w-full relative flex flex-col min-h-screen"
       >
         <Navbar />
-        <main>{children}</main>
+        <div className="overflow-x-hidden w-full relative flex-grow flex flex-col">
+          <main className="flex-grow">{children}</main>
+        </div>
         <Footer />
         <FloatingContactButtons />
       </body>

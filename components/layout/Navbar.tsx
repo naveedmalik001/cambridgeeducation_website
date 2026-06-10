@@ -95,7 +95,7 @@ export function Navbar() {
   return (
     <>
       <header
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${navBg}`}
+        className={`fixed top-0 left-0 right-0 z-50 transition-[background-color,box-shadow] duration-300 ${navBg}`}
         style={{ fontFamily: 'var(--font-inter), sans-serif' }}
       >
         <div className="container-custom">
@@ -106,7 +106,7 @@ export function Navbar() {
               <img
                 src="/assets/logo/logo.png"
                 alt="Cambridge Education Consultants"
-                className="h-8 md:h-11 lg:h-14 w-auto object-contain transition-all duration-300"
+                className="h-8 md:h-11 lg:h-14 w-auto object-contain transition-[filter] duration-300"
                 style={{
                   filter: scrolled || !isHome ? 'none' : 'brightness(0) invert(1)'
                 }}
