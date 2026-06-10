@@ -13,24 +13,16 @@ This repository contains the source code for the **Cambridge Education Consultan
 
 To run the web application locally:
 
-1. Navigate to the `nextapp` directory:
-   ```bash
-   cd nextapp
-   ```
-2. Install the dependencies:
+1. Install the dependencies at the root directory:
    ```bash
    npm install
    ```
-3. Start the local development server:
+2. Start the local development server:
    ```bash
    npm run dev
    ```
-4. Open [http://localhost:3000](http://localhost:3000) in your browser.
+3. Open [http://localhost:3000](http://localhost:3000) in your browser.
 
 ## 🚀 Vercel Deployment Settings
 
-Since the Next.js application resides in the `/nextapp` subdirectory, you must configure the **Root Directory** settings on Vercel:
-
-1. Go to your **Vercel Project Settings > General**.
-2. Set **Root Directory** to `nextapp`.
-3. Save the changes and redeploy.
+This project is configured to deploy directly to Vercel without any extra configuration. Simply import this repository into Vercel and it will automatically build and deploy.

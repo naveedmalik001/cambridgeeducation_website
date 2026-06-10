@@ -1,17 +1,17 @@
 # dependencies
-nextapp/node_modules/
+node_modules/
 .pnp
 .pnp.*
 
 # Next.js build outputs
-nextapp/.next/
-nextapp/out/
-nextapp/build/
-nextapp/*.tsbuildinfo
-nextapp/next-env.d.ts
+.next/
+out/
+build/
+*.tsbuildinfo
+next-env.d.ts
 
 # environment variables
-nextapp/.env*
+.env*
 
 # debug and logs
 npm-debug.log*
@@ -27,16 +27,3 @@ Thumbs.db
 
 # temporary agent scratch directories
 scratch/
-nextapp/inspect_images.js
-nextapp/check_hashes.js
-nextapp/check_artifact_hashes.js
-nextapp/check_artifact_hashes_main.js
-nextapp/check_dates.js
-nextapp/compare_images.js
-nextapp/compare_png_jpg.js
-nextapp/find_duplicates.js
-nextapp/find_jpg_match.js
-nextapp/find_jpg_upload_match.js
-nextapp/match_uploads.js
-nextapp/optimize_avicenna.js
-nextapp/scan_images.js
