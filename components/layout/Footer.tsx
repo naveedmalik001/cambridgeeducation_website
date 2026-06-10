@@ -136,17 +136,33 @@ export function Footer() {
               Quick Links
             </h3>
             <ul className="space-y-2.5">
-              {quickLinks.map((link) => (
-                <li key={link.href}>
-                  <Link
-                    href={link.href}
-                    className="flex items-center gap-2 text-sm text-slate-300 hover:text-white transition-colors group"
-                  >
-                    <ArrowRight size={12} className="opacity-0 group-hover:opacity-100 transition-opacity" />
-                    {link.label}
-                  </Link>
-                </li>
-              ))}
+              {quickLinks.map((link) => {
+                const isStatic = link.href.endsWith('.pdf') || link.href.startsWith('/#');
+                if (isStatic) {
+                  return (
+                    <li key={link.href}>
+                      <a
+                        href={link.href}
+                        className="flex items-center gap-2 text-sm text-slate-300 hover:text-white transition-colors group text-decoration-none"
+                      >
+                        <ArrowRight size={12} className="opacity-0 group-hover:opacity-100 transition-opacity" />
+                        {link.label}
+                      </a>
+                    </li>
+                  );
+                }
+                return (
+                  <li key={link.href}>
+                    <Link
+                      href={link.href}
+                      className="flex items-center gap-2 text-sm text-slate-300 hover:text-white transition-colors group"
+                    >
+                      <ArrowRight size={12} className="opacity-0 group-hover:opacity-100 transition-opacity" />
+                      {link.label}
+                    </Link>
+                  </li>
+                );
+              })}
             </ul>
           </div>
 
@@ -288,16 +304,29 @@ export function Footer() {
               {[
                 { label: 'Privacy Policy', href: '/privacy' },
                 { label: 'Terms of Service', href: '/terms' },
-                { label: 'Sitemap', href: '/sitemap.xml' },
-              ].map((link) => (
-                <Link
-                  key={link.href}
-                  href={link.href}
-                  className="text-xs text-slate-400 hover:text-white transition-colors font-medium"
-                >
-                  {link.label}
-                </Link>
-              ))}
+                { label: 'Sitemap', href: '/sitemap.xml', isStatic: true },
+              ].map((link) => {
+                if (link.isStatic) {
+                  return (
+                    <a
+                      key={link.href}
+                      href={link.href}
+                      className="text-xs text-slate-400 hover:text-white transition-colors font-medium text-decoration-none"
+                    >
+                      {link.label}
+                    </a>
+                  );
+                }
+                return (
+                  <Link
+                    key={link.href}
+                    href={link.href}
+                    className="text-xs text-slate-400 hover:text-white transition-colors font-medium"
+                  >
+                    {link.label}
+                  </Link>
+                );
+              })}
             </div>
           </div>
         </div>
