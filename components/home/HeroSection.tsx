@@ -52,7 +52,7 @@ export function HeroSection() {
               className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-xs font-semibold uppercase tracking-wider mb-6 bg-blue-950/60 border border-blue-800/40 text-teal-400"
             >
               <span className="w-2 h-2 rounded-full bg-teal-400 animate-pulse" />
-              Trusted J&K Medical Education Experts
+              MBBS | Study Abroad Experts
             </motion.div>
 
             {/* Headline */}

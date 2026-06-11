@@ -67,7 +67,7 @@ export const universities: University[] = [
     name: 'Khatlon State Medical University',
     shortName: 'KSMU',
     established: '2016',
-    location: 'Kulob, Tajikistan',
+    location: 'Dangara, Tajikistan',
     country: 'Tajikistan',
     image: '/assets/universities/khatlon-state-medical-university.png',
     description:
